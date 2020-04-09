@@ -7,37 +7,29 @@ namespace CustomerManagement.Models
 {
     public class Customer
     {
-        string sFname, sLname, sShoppingCategory, sRegistrationNumber = string.Empty;
-        private int iAge = 0;
-
         public string FirstName
         {
-            get { return sFname; }
-            set { sFname = value; }
+            get; set;
         }
 
         public string LastName
         {
-            get { return sLname; }
-            set { sLname = value; }
+            get; set;
         }
 
         public int Age
         {
-            get { return iAge; }
-            set { iAge = value; }
+            get; set;
         }
 
         public string ShoppingCategory
         {
-            get { return sShoppingCategory; }
-            set { sShoppingCategory = value; }
+            get; set;
         }
 
-        public string RegistrationNumber
+        public int RegistrationNumber
         {
-            get { return sRegistrationNumber; }
-            set { sRegistrationNumber = value; }
+            get; set;
         }
     }
 }

@@ -19,30 +19,30 @@ namespace CustomerManagement.Tests
         public void GetAllCustomers_ShouldReturnAllCustomers()
         {
             var testProducts = GetTestProducts();
-            var controller = new CustomerRetrieveController();
+            var controller = new CustomerManagementController();
 
-            var result = controller.GetAllCustomers() as List<Customer>;
+            var result = controller.Get() as List<Customer>;
             Assert.AreEqual(testProducts.Count, result.Count);
         }
 
-        //Check for a customer exists or not
+        //Check for a customer First Name exists or not
         [TestMethod]
-        public void AddNewCustomer_ShouldAddAndReturnAllCustomers()
+        public void AddNewCustomer_ShouldReturnCustomerFirstName()
         {
             var testProducts = GetTestProducts();
-            var controller = new CustomerRetrieveController();
+            var controller = new CustomerManagementController();
 
-            var result = controller.GetCustomer("12345") as List<Customer>;
-            Assert.AreEqual(testProducts[0].FirstName, result[0].FirstName);
+            var result = controller.Get(1);
+            Assert.AreEqual(testProducts[0].FirstName, result);
         }
         //Loading default customer data
         private List<Customer> GetTestProducts()
         {
             var testProducts = new List<Customer>();
-            testProducts.Add(new Customer { FirstName = "Manish", LastName = "Verma", Age = 30, ShoppingCategory = "Dairy", RegistrationNumber = "12345"});
-            testProducts.Add(new Customer { FirstName = "Mitansh", LastName = "Verma", Age = 7, ShoppingCategory = "Cookies", RegistrationNumber = "12346" });
-            testProducts.Add(new Customer { FirstName = "Abhishek", LastName = "Verma", Age = 32, ShoppingCategory = "Frozen", RegistrationNumber = "12347" });
-            testProducts.Add(new Customer { FirstName = "Pratham", LastName = "Verma", Age = 16, ShoppingCategory = "Fresh Vegetable", RegistrationNumber = "12348" });
+            testProducts.Add(new Customer { FirstName = "Manish", LastName = "Verma", Age = 30, ShoppingCategory = "Dairy", RegistrationNumber = 1});
+            testProducts.Add(new Customer { FirstName = "Mitansh", LastName = "Verma", Age = 7, ShoppingCategory = "Cookies", RegistrationNumber = 2 });
+            testProducts.Add(new Customer { FirstName = "Abhishek", LastName = "Verma", Age = 32, ShoppingCategory = "Frozen", RegistrationNumber = 3 });
+            testProducts.Add(new Customer { FirstName = "Pratham", LastName = "Verma", Age = 16, ShoppingCategory = "Fresh Vegetable", RegistrationNumber = 4 });
 
             return testProducts;
         }

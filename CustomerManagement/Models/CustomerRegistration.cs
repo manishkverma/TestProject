@@ -23,10 +23,10 @@ namespace CustomerManagement.Models
                 _customerRegistration = new CustomerRegistration();
                 if (_customerRegistration.lCustomerList.Count < 1)
                 {
-                    _customerRegistration.Add(new Customer { FirstName = "Manish", LastName = "Verma", Age = 30, ShoppingCategory = "Dairy", RegistrationNumber = "12345" });
-                    _customerRegistration.Add(new Customer { FirstName = "Mitansh", LastName = "Verma", Age = 7, ShoppingCategory = "Cookies", RegistrationNumber = "12346" });
-                    _customerRegistration.Add(new Customer { FirstName = "Abhishek", LastName = "Verma", Age = 32, ShoppingCategory = "Frozen", RegistrationNumber = "12347" });
-                    _customerRegistration.Add(new Customer { FirstName = "Pratham", LastName = "Verma", Age = 16, ShoppingCategory = "Fresh Vegetable", RegistrationNumber = "12348" });
+                    _customerRegistration.Add(new Customer { FirstName = "Manish", LastName = "Verma", Age = 30, ShoppingCategory = "Dairy", RegistrationNumber = 1 });
+                    _customerRegistration.Add(new Customer { FirstName = "Mitansh", LastName = "Verma", Age = 7, ShoppingCategory = "Cookies", RegistrationNumber = 2 });
+                    _customerRegistration.Add(new Customer { FirstName = "Abhishek", LastName = "Verma", Age = 32, ShoppingCategory = "Frozen", RegistrationNumber = 3 });
+                    _customerRegistration.Add(new Customer { FirstName = "Pratham", LastName = "Verma", Age = 16, ShoppingCategory = "Fresh Vegetable", RegistrationNumber = 4 });
                 }
                 
                 return _customerRegistration;
@@ -38,30 +38,42 @@ namespace CustomerManagement.Models
         }
 
         //This method is to add Customer in collection
-        public void Add(Customer customer)
+        public string Add(Customer customer)
         {
-            lCustomerList.Add(customer);
+            string sResultStatus = string.Empty;
+            try
+            {
+                lCustomerList.Add(customer);
+                return sResultStatus = "Customer Added successfully";
+            }
+            catch (Exception e)
+            {
+                return sResultStatus = e.Message;
+            }
+            
+
         }
 
         //This method is to find Customer from collection
-        public List<Customer> GetCustomer(String sRegistrationNumber)
+        public List<Customer> GetCustomer(int iRegistrationNumber)
         {
-            return lCustomerList.FindAll(x => x.RegistrationNumber == sRegistrationNumber);// ();
+            return lCustomerList.FindAll(x => x.RegistrationNumber == iRegistrationNumber);// ();
         }
 
         //This method is to Delete Customer from list of customers based on Registration number
-        public String Remove(String registrationNumber)
+        public string Remove(int registrationNumber)
         {
+            string sStatus = "Customer not found";
             for (int iCustomerIndex = 0; iCustomerIndex < lCustomerList.Count; iCustomerIndex++)
             {
                 Customer customer = lCustomerList.ElementAt(iCustomerIndex);
                 if (customer.RegistrationNumber.Equals(registrationNumber))
                 {
                     lCustomerList.RemoveAt(iCustomerIndex);//update the new record
-                    return "Customer deletion from collection successful";
+                    sStatus = "Successful removed Customer";
                 }
             }
-            return "Delete customer operation is un-successful";
+            return sStatus;
         }
 
         //This method is to Get list of all Customers
@@ -71,18 +83,17 @@ namespace CustomerManagement.Models
         }
 
         //This method is to update Customer details based on Registration number
-        public String UpdateCustomer(Customer customer)
+        public void UpdateCustomer(int iRegistrationNumber, string sShoppingCategory)
         {
             for (int iCustomerIndex = 0; iCustomerIndex < lCustomerList.Count; iCustomerIndex++)
             {
                 Customer oCustomer = lCustomerList.ElementAt(iCustomerIndex);
-                if (oCustomer.RegistrationNumber.Equals(customer.RegistrationNumber))
+                if (oCustomer.RegistrationNumber.Equals(iRegistrationNumber))
                 {
-                    lCustomerList[iCustomerIndex] = customer;//update the new record
-                    return "Update customer data is successful";
+                    oCustomer.ShoppingCategory = sShoppingCategory;
                 }
             }
-            return "Update customer information is un-successful";
+            
         }
 
 
